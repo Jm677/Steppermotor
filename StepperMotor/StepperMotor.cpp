@@ -24,13 +24,14 @@ StepperMotor::StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, i
   EndPin = endPin;
   MaxPos = maxPos;
   MinPos = minPos;
+  Invert=invert;
 }
 
 void StepperMotor::Step(double Steps, int MS) {
   bool first = true, ausfuehren = true;
   //Serial.println("Steps in Steps: "+String(Steps));
   int Inv=1;
-  if(invert) Inv=-1;
+  if(Invert) Inv=-1;
   Steps=round(Steps*MS*Inv);
   double Delay = map(Speed, 100, 1, (1. / MinDelay) * 1000., (1. / MaxDelay) * 1000.) / 1000.;
   if (Steps < 0) {
@@ -84,13 +85,14 @@ void StepperMotor::Full(char Dir, int Umdrehungen, int MS) {
     Step(Umdrehung*MS, MS);
   }
 }
+/*
 void StepperMotor::setSPEED(int SPEED) {
 
   if (SPEED < 1) SPEED = 1;
   else if (SPEED > 100) SPEED = 100;
   Speed = SPEED;
   //Serial.println("S: "+String(Speed));
-}
+}*/
 void StepperMotor::Abs(float Soll, int MS) {
   if (Soll >= MaxPos) Soll = MaxPos;
   else if (Soll < MinPos) Soll = MinPos;
@@ -138,7 +140,7 @@ void StepperMotor::VLR(float Alpha, int MS) {
 void StepperMotor::Home(int MS) {
 
   int S = Speed;
-  setSPEED(30);
+  //setSPEED(30);
   int i;
   while (digitalRead(EndPin)) {
     Step(-1, MS);
@@ -146,7 +148,7 @@ void StepperMotor::Home(int MS) {
     i++;
   }
   IstPos = MinPos;
-  setSPEED(S);
+  //setSPEED(S);
 }
 void StepperMotor:: disable()
 {

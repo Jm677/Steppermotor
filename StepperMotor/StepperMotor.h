@@ -3,11 +3,11 @@
 #include "Arduino.h"
 class StepperMotor {
 
-  private: int DirPin, StepPin, EnablePin, MsPin1, MsPin2, EndPin;
+  private: int DirPin, StepPin, EnablePin, MsPin1, MsPin2, EndPin, Invert;
   public: float MaxPos, MinPos, IstPos;
   public: float Speed = 50;
   public:
-    StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, int msPin2, int endPin, float minPos, float maxPos);
+    StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, int msPin2, int endPin, float minPos, float maxPos, boolean invert);
 
     void Step(double Steps, int MS);
 
@@ -25,7 +25,7 @@ class StepperMotor {
 
     void VLR(float Alpha, int MS);
 
-    void setSPEED(int SPEED);
+   // void setSPEED(int SPEED);
 
     void disable();
 };
