@@ -8,7 +8,7 @@
 #define TransTimeLimit 10000
 
 
-StepperMotor::StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, int msPin2, int endPin, float minPos, float maxPos) {
+StepperMotor::StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, int msPin2, int endPin, float minPos, float maxPos, bool invert) {
   pinMode(dirPin, OUTPUT);
   pinMode(stepPin, OUTPUT);
   pinMode(enablePin, OUTPUT);
@@ -29,7 +29,9 @@ StepperMotor::StepperMotor(int dirPin, int stepPin, int enablePin, int msPin1, i
 void StepperMotor::Step(double Steps, int MS) {
   bool first = true, ausfuehren = true;
   //Serial.println("Steps in Steps: "+String(Steps));
-  Steps=round(Steps*MS);
+  int Inv=1;
+  if(invert) Inv=-1;
+  Steps=round(Steps*MS*Inv);
   double Delay = map(Speed, 100, 1, (1. / MinDelay) * 1000., (1. / MaxDelay) * 1000.) / 1000.;
   if (Steps < 0) {
     digitalWrite(DirPin, HIGH);
