@@ -107,11 +107,11 @@ void StepperMotor::Deg(float Soll, int MS) {
   if (Soll >= MaxPos) Soll = MaxPos;
   else if (Soll <= MinPos) Soll = MinPos;
   float sollSteps = (Soll - IstPos) / 360. * float(Umdrehung);
-   Serial.println("Soll Steps: "+String(sollSteps*MS));
+   //Serial.println("Soll Steps: "+String(sollSteps*MS));
   Step(sollSteps, MS);
   IstPos += round(sollSteps*MS)/float(MS)/float(Umdrehung)*360.*Invert;
  //IstPos=Soll;
-  Serial.println("Ist Pos: "+String(IstPos));
+ // Serial.println("Ist Pos: "+String(IstPos));
 }
 void StepperMotor::Spindel(float MM, int MS) {
   Abs(MM * -1, MS);
